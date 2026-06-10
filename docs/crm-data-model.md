@@ -20,7 +20,8 @@ opportunities are first-class reports.
 | `source` | gname auction / backorder / pending-delete / off-market |
 | `auction_close_at` | drives timeline-aware sequencing; **prefer long runway** |
 | `current_price`, `bid_count` | refreshed near close |
-| `brand_gate` | `pending` / `passed` / `dropped` + `reason` (required to leave S2) |
+| `brand_gate` | `pending` / `passed` / `dropped` + `reason` (required to leave S2). Auto-`dropped` with reason `single-buyer` when `independent_buyer_count` < 2 |
+| `independent_buyer_count` | # of unrelated, comparable entities that plausibly want the name for its own meaning. **The single-buyer test:** 1 → drop; ≥3 → eligible to pursue |
 | `llm_score`, `buyer_categories[]`, `price_band` | from S3 |
 | `max_bid` | computed = agreed_price − margin − fees; **enforced ceiling at bid time** |
 | `agreed_price` | from the winning Commitment |
@@ -56,7 +57,12 @@ Transferring → Closed`, plus terminal `Dropped` (failed brand gate / low value
 
 ### Enforced transitions (the safety rails)
 - `Brand-screened → Scored`: requires `brand_gate = passed`.
-- `In-outreach → Committed`: requires ≥3 prospects contacted (multi-buyer rule) — soft warn.
+- `Brand-screened → Scored`: also auto-drops if `independent_buyer_count` < 2 (single-buyer test).
+- `Scored → Prospected`: requires `independent_buyer_count` ≥ 3 (genuine, *independent, comparable*
+  buyers — not one famous mark plus noise). **Hard block** below 3; this is the multi-buyer rule
+  that keeps us in the generic/legal lane.
+- *Outreach constraint:* all prospects on a Deal get the **same generic pitch template**; the CRM
+  flags any per-contact copy that references a specific prospect's trademark/brand (red-zone framing).
 - `Committed → Bidding`: requires a linked **Commitment** record. **Hard block.**
 - `Bidding`: `bid_max` is enforced; system walks if auction price > `bid_max` and sets `Lost/walked`
   (recorded as margin-protected, **not** a failure).

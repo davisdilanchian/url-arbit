@@ -31,6 +31,61 @@ This single rule simultaneously:
 - **Improves the business:** many buyers = leverage, competitive tension, and a fallback buyer if
   one walks. (Brand resale has exactly one possible buyer — bad business *and* illegal.)
 
+## The decision rule: generic value vs. brand-specific value
+
+The single question that sorts every domain is: **does the domain's value come from a generic/
+descriptive meaning (many possible users), or from one party's distinctive identity (one user)?**
+
+**The single-buyer test (the fastest operational filter).** Ask: *how many unrelated, comparable
+entities would plausibly want this name for its own meaning?*
+- **Exactly one → DROP.** One realistic buyer means the value *is* that party's identity. Selling
+  to them is the bad-faith pattern (ACPA factor #6). This is true no matter how you frame the fee.
+- **Several genuine, independent, comparable buyers → PURSUE.** Multiplicity is the *proof* the name
+  is generic and that you hold a market asset, not someone's brand. Require **≥3** before spending.
+
+This is why "reach out to many buyers" is legitimate *only when the multiplicity is real*. The
+protection comes from the name genuinely having many interested parties — not from the act of
+mass-emailing. Spamming a single-buyer brand name (e.g. `emule.com`) to 50 companies does not
+launder it: 49 have no reason to want it, the value is still the one mark holder's identity, and a
+panel sees through it. Multiplicity is a *symptom* of generic value, never a manufactured cover.
+
+### Worked examples (pursue vs. drop)
+
+| Domain | Possible buyers | Why | Verdict |
+|---|---|---|---|
+| `emule.com` | one (the eMule project) | coined name = one party's identity | **DROP** |
+| `apple.com` → Apple | one (famous mark) | distinctive brand | **DROP** |
+| `youngsister.com` | many (a band, a clothing co., a nonprofit, a film…) | ordinary two-word phrase, no one owns it | **PURSUE** |
+| `clinicalstaffing.com` | many (dozens of staffing firms) | descriptive category | **PURSUE** |
+| `coldbrew.io` | many (any coffee brand) | generic product term | **PURSUE** |
+
+Note on the multi-buyer case: market the asset to the **whole category** with the **same generic
+pitch** ("premium two-word .com that may fit your brand"), and let interested parties — including any
+entity that happens to share the name — come to you or compete. The existence of one company called
+"Young Sister" does **not** give them ownership of a common English phrase; trademark law does not
+let anyone monopolize ordinary descriptive words. A complainant must prove all three UDRP prongs
+(confusingly similar to *their* mark; you have *no* legitimate interest; registered *and* used in
+bad faith), and a genuine generic fails them on prongs 2 and 3. Overreaching trademark holders who
+try to grab legitimate generics can even be sanctioned for **Reverse Domain Name Hijacking** — the
+process protects the generic owner.
+
+### Defenses that do NOT work (do not build the business on these)
+
+- **"I didn't know about the trademark."** Not credible for a distinctive name (a "knew or should
+  have known" standard applies; willful blindness counts as knowledge), and irrelevant the moment
+  you *find the holder and solicit them* — that outbound act forms the bad-faith intent regardless
+  of what you knew at purchase. Clean sales are **inbound** (the mark owner approaches you about a
+  domain you hold for legitimate reasons), not **outbound** (you hunt the mark owner because of
+  their name).
+- **"I'll put up a flimsy use, then sell."** Pretextual/sham use is the most-litigated issue in
+  UDRP and panels routinely see through it (site stood up only before a sale, thin/placeholder
+  content, or use that trades on the mark's meaning). A sham use can *aggravate* the case —
+  evidence of bad faith, pushing an ACPA finding toward *willful* and damages toward the $100k end.
+  A **genuine, substantial** business use creates a real interest, but then you're an operator who
+  spent real time/money, not a flipper.
+- **"It's a finder's fee, not a ransom."** The label on the payment is irrelevant; factor #6 turns
+  on financial gain from the mark owner without a legitimate interest of your own.
+
 ## Pipeline implications (enforced in code/CRM, not left to judgment)
 
 1. **S2 hard gate — drop if any of:**

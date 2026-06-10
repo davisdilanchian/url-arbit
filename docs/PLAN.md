@@ -45,6 +45,14 @@ gname auctions, run on rails by sales-crm.*
 Full detail in [`docs/legal-constraints.md`](legal-constraints.md). The short version drives the
 entire product:
 
+> **The one test that sorts every domain — the single-buyer test:** *how many unrelated,
+> comparable entities would plausibly want this name for its own meaning?* **Exactly one → DROP**
+> (its value is that party's brand identity; selling to them is the cybersquatting pattern).
+> **Several genuine independent buyers (require ≥3) → PURSUE** (the multiplicity proves the name is
+> generic and you hold a market asset). Examples: `emule.com` = one buyer → drop; `youngsister.com`
+> / `clinicalstaffing.com` = many buyers → pursue. Multiplicity must be *real* — mass-emailing a
+> single-buyer brand name does not launder it.
+
 - **Hard exclusion filter (first thing in the pipeline, before any outreach):** drop any domain
   that is identical/confusingly similar to an existing trademark, brand, or personal name. Check
   against USPTO/EUIPO trademark data, a known-brands list, and an LLM "is this a brand?" pass.
@@ -154,6 +162,10 @@ identify, offer the asset on descriptive merit, propose price, handle replies.
 - *Mitigations:* warm domains/inboxes, personalization from S3/S4, A/B templates, opt-out + suppression
   list, **timeline-aware sequencing tied to auction close**, hard price floor from §3, parallel
   outreach to multiple prospects so one declining ≠ dead deal.
+- *Legal framing rule (carried from the legal doc):* market the name to the **whole category** with
+  the **same generic pitch** to every prospect ("premium two-word .com that may fit your brand") —
+  never single out one mark holder with "this is your brand, buy it." Same pitch to all buyers is
+  what keeps a multi-buyer generic clean *and* creates competitive tension on price.
 
 **S6 — Commitment (the gate before money).** Get a fixed price + **deposit/LOI/escrow hold**
 before bidding. No commitment → no bid.
