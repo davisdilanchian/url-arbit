@@ -48,8 +48,9 @@ entire product:
 > **The one test that sorts every domain — the single-buyer test:** *how many unrelated,
 > comparable entities would plausibly want this name for its own meaning?* **Exactly one → DROP**
 > (its value is that party's brand identity; selling to them is the cybersquatting pattern).
-> **Several genuine independent buyers (require ≥3) → PURSUE** (the multiplicity proves the name is
-> generic and you hold a market asset). Examples: `emule.com` = one buyer → drop; `youngsister.com`
+> **Several genuine independent buyers (require ≥2 to reach out; 3+ preferred) → PURSUE** (the
+> multiplicity proves the name is generic and you hold a market asset). The two must be genuinely
+> independent and *comparable* — a dominant/famous mark never counts as one of the two. Examples: `emule.com` = one buyer → drop; `youngsister.com`
 > / `clinicalstaffing.com` = many buyers → pursue. Multiplicity must be *real* — mass-emailing a
 > single-buyer brand name does not launder it.
 
@@ -126,9 +127,19 @@ not paying* (almost certainly yes — never win without a committed buyer).
 
 > Each stage maps to a CRM pipeline stage (§6) and emits metrics (§8).
 
-**S1 — Source / ingest.** Poll gname auction + backorder + pending-delete lists. Capture domain,
-TLD, current price, bid count, **time-to-close** (prefer long runway — gives outreach time),
-registry, and traffic/age signals.
+> **Daily operating loop (the cadence):** once per day — (1) **scrape** gname auction/backorder/
+> pending-delete for new listings; (2) keep only **winnable** candidates (we can plausibly take the
+> lot at auction within a sane max-bid — see winnability in S3) that also clear the generic
+> single-buyer gate (S2); (3) for those, **find potential buyers** (S4); (4) only domains where we
+> can reliably identify **≥2 genuine, independent, comparable buyers** advance to **outreach**;
+> (5) outreach → commitment → bid → transfer. Run the **cheapest filters first** (scrape →
+> winnability → brand/single-buyer gate) so the expensive prospecting + LLM work only touches the
+> small surviving set. Track the daily funnel counts (§8) so the "two reliable buyers" yield rate is
+> measured, not assumed.
+
+**S1 — Source / ingest.** **Scrape gname daily**: auction + backorder + pending-delete lists.
+Capture domain, TLD, current price, bid count, **time-to-close** (prefer long runway — gives
+outreach time), registry, and traffic/age signals.
 - *Failures:* missing listings, rate-limiting/scraping breakage, stale prices.
 - *Mitigations:* prefer official API/feeds over scraping; idempotent ingest; re-poll hot deals as
   close approaches; alert on feed gaps.
@@ -141,8 +152,11 @@ names. (See §2 / legal doc.)
 
 **S3 — LLM value scoring.** Score survivors on commercial generic value: keyword strength,
 category breadth (how many buyer types?), TLD quality, length/brandability, comparable sales.
-Output a score + the **buyer categories** this name serves + a price band.
-- *Failures:* LLM over-values junk; hallucinated comps.
+Output a score + the **buyer categories** this name serves + a price band. Also score
+**winnability** — rough probability we can take the lot at auction within our max-bid (current bid
+count, price trajectory, time-to-close, historical clearing prices for similar names) — and
+deprioritize likely-overbid lots *before* spending prospecting effort on them.
+- *Failures:* LLM over-values junk; hallucinated comps; chasing lots we'll get outbid on.
 - *Mitigations:* calibrate against real comp data (Sedo/NameBio); require category breadth ≥ N
   buyers to proceed; cheap model for triage, strong model for finalists; never auto-bid on LLM
   score alone (human gate before money moves).
@@ -151,7 +165,8 @@ Output a score + the **buyer categories** this name serves + a price band.
 in the named category — not one brand. Enrich with contact + buying-signal data.
 - *Failures:* thin/biased prospect lists; bad contact data; accidentally targeting a single mark
   holder (re-checks §2).
-- *Mitigations:* require ≥3 independent prospects before spending; verify emails; re-run the
+- *Mitigations:* **require ≥2 genuine, independent, comparable prospects before outreach (3+
+  preferred)** — and never count a dominant/famous mark as one of the two; verify emails; re-run the
   brand check on the *prospects* (if every prospect is the same brand, the name was brandable —
   kick back to S2).
 
@@ -229,6 +244,10 @@ cost. Keep humans in the loop at every point money moves until the metrics earn 
 ---
 
 ## 8. KPIs / guardrail metrics (to minimize failures & lost opportunities)
+
+**Daily funnel (the cadence's yield):** listings scraped/day → % winnable → % passing single-buyer
+gate → **% reaching ≥2 reliable independent buyers** (the gate to outreach; watch this rate — it
+determines whether the daily scrape produces enough actionable deals) → outreach → commitment → win.
 
 **Throughput / opportunity capture:** listings ingested, % surviving trademark gate, % scored
 "pursue," prospects per finalist, outreach sent, reply rate, commitment rate, auctions entered,

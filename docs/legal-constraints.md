@@ -41,7 +41,11 @@ entities would plausibly want this name for its own meaning?*
 - **Exactly one → DROP.** One realistic buyer means the value *is* that party's identity. Selling
   to them is the bad-faith pattern (ACPA factor #6). This is true no matter how you frame the fee.
 - **Several genuine, independent, comparable buyers → PURSUE.** Multiplicity is the *proof* the name
-  is generic and that you hold a market asset, not someone's brand. Require **≥3** before spending.
+  is generic and that you hold a market asset, not someone's brand. **Require ≥2 to reach out (3+
+  preferred for margin).** The two must be genuinely independent and *comparable* — a dominant or
+  famous distinctive mark never counts as one of the two (that would be the single-buyer case in
+  disguise). Two is the floor that establishes non-exclusivity; more buyers = more legal margin
+  *and* more price competition, so prefer more whenever the name genuinely supports it.
 
 This is why "reach out to many buyers" is legitimate *only when the multiplicity is real*. The
 protection comes from the name genuinely having many interested parties — not from the act of
@@ -104,8 +108,9 @@ process protects the generic owner.
    us." Templates are reviewed and stored in the CRM. (This framing also materially lifts reply
    rates — buyers respond to "valuable generic asset," not to a perceived shakedown.)
 
-4. **Multi-buyer requirement:** require **≥3 independent prospective buyers** before spending. If a
-   name only has one realistic buyer, that's a signal it's a brand term → kick back to S2.
+4. **Multi-buyer requirement:** require **≥2 genuine, independent, comparable buyers** before
+   outreach (3+ preferred); a dominant/famous mark does not count toward the two. If a name only
+   has one realistic buyer, that's a signal it's a brand term → kick back to S2.
 
 ## Adjacent compliance (not optional, lower severity)
 

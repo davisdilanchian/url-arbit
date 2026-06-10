@@ -21,8 +21,10 @@ opportunities are first-class reports.
 | `auction_close_at` | drives timeline-aware sequencing; **prefer long runway** |
 | `current_price`, `bid_count` | refreshed near close |
 | `brand_gate` | `pending` / `passed` / `dropped` + `reason` (required to leave S2). Auto-`dropped` with reason `single-buyer` when `independent_buyer_count` < 2 |
-| `independent_buyer_count` | # of unrelated, comparable entities that plausibly want the name for its own meaning. **The single-buyer test:** 1 → drop; ≥3 → eligible to pursue |
+| `independent_buyer_count` | # of unrelated, comparable entities that plausibly want the name for its own meaning. **The single-buyer test:** 1 → drop; ≥2 → eligible to reach out (3+ preferred). A dominant/famous mark does not count toward the total |
 | `llm_score`, `buyer_categories[]`, `price_band` | from S3 |
+| `winnability` | rough P(we win the lot ≤ max_bid): bid count, price trajectory, time-to-close, comps. Low → deprioritize before prospecting |
+| `scraped_date`, `daily_batch_id` | which daily scrape surfaced it (funnel tracking) |
 | `max_bid` | computed = agreed_price − margin − fees; **enforced ceiling at bid time** |
 | `agreed_price` | from the winning Commitment |
 | `realized_spread`, `outcome`, `reason_code` | written at S9 (won/lost/walked/fell-through) |
@@ -58,9 +60,11 @@ Transferring → Closed`, plus terminal `Dropped` (failed brand gate / low value
 ### Enforced transitions (the safety rails)
 - `Brand-screened → Scored`: requires `brand_gate = passed`.
 - `Brand-screened → Scored`: also auto-drops if `independent_buyer_count` < 2 (single-buyer test).
-- `Scored → Prospected`: requires `independent_buyer_count` ≥ 3 (genuine, *independent, comparable*
-  buyers — not one famous mark plus noise). **Hard block** below 3; this is the multi-buyer rule
-  that keeps us in the generic/legal lane.
+- `Scored → Prospected`: requires winnability above threshold (don't prospect lots we'll be outbid on).
+- `Prospected → In-outreach`: requires `independent_buyer_count` ≥ 2 (genuine, *independent,
+  comparable* buyers — a dominant/famous mark does not count). **Hard block** below 2; 3+ preferred.
+  This is the multi-buyer rule that keeps us in the generic/legal lane and the user's "two reliable
+  buyers before we reach out" trigger.
 - *Outreach constraint:* all prospects on a Deal get the **same generic pitch template**; the CRM
   flags any per-contact copy that references a specific prospect's trademark/brand (red-zone framing).
 - `Committed → Bidding`: requires a linked **Commitment** record. **Hard block.**

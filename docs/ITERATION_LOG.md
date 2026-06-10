@@ -4,6 +4,24 @@ Each recursive `/loop` planning pass records here what it changed and why. Newes
 Next passes should pick an item from PLAN §10 (open questions), resolve it with research, deepen
 the relevant section, and log it below.
 
+## v3 — 2026-06-10 — daily-scrape cadence, winnability filter, ≥2-buyer outreach trigger
+- Added the explicit **daily operating loop** to `PLAN.md` §5: scrape gname daily → keep only
+  *winnable* + single-buyer-clear candidates → find buyers → outreach only when ≥2 reliable
+  independent buyers exist → commitment → bid → transfer. Cheapest filters first so expensive
+  prospecting/LLM runs only on the small surviving set.
+- Added a **winnability** score (S3 + CRM `winnability` field): P(we win the lot ≤ max_bid) from bid
+  count, price trajectory, time-to-close, comps — deprioritize likely-overbid lots before spending
+  prospecting effort. New CRM transition gate `Scored → Prospected` on winnability.
+- **Reconciled the buyer-count threshold with the user's instruction:** lowered the outreach trigger
+  from ≥3 to **≥2 genuine, independent, comparable buyers** (3+ still preferred for margin) across
+  `PLAN.md`, `legal-constraints.md`, and `crm-data-model.md`. Added the binding safety qualifier: a
+  dominant/famous mark never counts toward the two (else it's the single-buyer case in disguise).
+  CRM `Prospected → In-outreach` is a **hard block** below 2.
+- Added **daily-funnel metrics** (§8) including the two-reliable-buyers yield rate, plus
+  `scraped_date`/`daily_batch_id` on the Deal for funnel tracking.
+- *Tradeoff noted:* 2 is the floor that establishes non-exclusivity; it carries less legal cushion
+  than 3, mitigated by the independence/comparability quality rule.
+
 ## v2 — 2026-06-10 — encode the single-buyer test as the headline filter
 - Promoted the **single-buyer test** to the top of the legal reframe in `PLAN.md` §2 and made it the
   primary operational filter: *how many unrelated, comparable entities would plausibly want this
